@@ -1,0 +1,46 @@
+import smtplib
+import time
+from time import sleep
+from gpiozero import LED,InputDevice
+
+led=LED(17)
+No_rain= InputDevice(18)
+
+def send():
+    smtpUser="****@gmail.com"
+    smtpPass="****"
+    toAdd="****@gmail.com"
+    fromAdd=smtpUser
+    subject="YAĞMUR YAĞIYOR."
+    header="To:" + toAdd  + '\n' + 'From:' + fromAdd + '\n' + 'Subject:' + subject
+    body= "Yağmur yağıyor. Senin için bir kitap önerisi: Cengiz Aytmatov- Gün Olur Asra Bedel. Yağmurun keyfini rahatlatıcı ışıklarla ve güzel bir kitapla çıkarabilirsin."
+    print (header + '\n'+ body)
+    s=smtplib.SMTP("smtp.gmail.com",587)
+    s.ehlo()
+    s.starttls()
+    s.ehlo()
+    s.login(smtpUser, smtpPass)
+    s.sendmail(fromAdd, toAdd, header + '\n' +body)
+    s.quit()
+
+
+
+while True:
+    if not no_rain.is_active:
+        print("Yağmur yağıyor, mailini kontrol et!")
+        led.on()
+        time.sleep(0.5)
+        led.off()
+        time.sleep(0.5)
+        led.on()
+        time.sleep(0.5)
+        led.off()
+        time.sleep(0.5)
+	send()
+
+
+
+sınıflar sınıf id 
+dersler sınıf id ders adi  gun id saat id
+randevular randevu id oğrenci id ders id sinif id
+
